@@ -14,6 +14,7 @@
             --muted: #6b7280;
             --light: #f8f9fa;
             --border: #e5e7eb;
+            --success: #059669;
         }
 
         * {
@@ -22,9 +23,8 @@
             box-sizing: border-box;
         }
 
-        @page {
-            margin: 0.5in;
-            size: letter;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -32,23 +32,23 @@
             font-size: 11pt;
             line-height: 1.6;
             color: var(--primary);
-            background: white;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
+            background: #f0f2f5;
         }
 
-        @media print {
-            body { padding: 0; }
-            .issue-card { page-break-inside: avoid; }
-            .section { page-break-inside: avoid; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         /* Header */
         .header {
+            background: white;
             border-bottom: 3px solid var(--primary);
-            padding-bottom: 24px;
-            margin-bottom: 32px;
+            padding: 24px 32px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .header-top {
@@ -102,7 +102,8 @@
             gap: 20px;
             background: var(--light);
             padding: 20px;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
+            border-radius: 8px;
         }
 
         .meta-item {
@@ -123,12 +124,120 @@
             font-size: 11pt;
         }
 
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-label {
+            font-weight: 600;
+            font-size: 10pt;
+            color: var(--muted);
+            margin-right: 8px;
+        }
+
+        .nav-link {
+            padding: 6px 12px;
+            font-size: 9pt;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 4px;
+            background: var(--light);
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--border);
+            margin: 0 8px;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            font-size: 9pt;
+            font-weight: 600;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .filter-btn.critical.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .filter-btn.major.active {
+            background: var(--caution);
+            border-color: var(--caution);
+        }
+
+        .filter-btn.minor.active {
+            background: var(--warning);
+            border-color: var(--warning);
+            color: var(--primary);
+        }
+
+        .print-btn {
+            padding: 6px 14px;
+            font-size: 9pt;
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .print-btn:hover {
+            background: #2d3748;
+        }
+
         /* Summary Box */
         .summary-box {
             background: linear-gradient(135deg, var(--primary) 0%, #2d3748 100%);
             color: white;
             padding: 24px;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
+            border-radius: 8px;
         }
 
         .summary-title {
@@ -159,12 +268,21 @@
             text-align: center;
             padding: 12px;
             background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .stat:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
 
         .stat-number {
             font-size: 28pt;
             font-weight: 700;
             font-family: 'Crimson Pro', Georgia, serif;
+            transition: all 0.3s;
         }
 
         .stat-label {
@@ -188,16 +306,33 @@
 
         /* Section Styling */
         .section {
-            margin-bottom: 32px;
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .section.collapsed .issues-grid {
+            display: none;
+        }
+
+        .section.collapsed .section-header .collapse-icon {
+            transform: rotate(-90deg);
         }
 
         .section-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            padding: 16px 20px;
             border-bottom: 2px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .section-header:hover {
+            background: var(--light);
         }
 
         .section-icon {
@@ -223,19 +358,39 @@
             font-size: 10pt;
             font-weight: 600;
             color: var(--muted);
+            border-radius: 12px;
+        }
+
+        .collapse-icon {
+            font-size: 12px;
+            color: var(--muted);
+            transition: transform 0.3s;
+            margin-left: 8px;
         }
 
         /* Issue Cards with Images */
         .issues-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
+            padding: 20px;
         }
 
         .issue-card {
             background: var(--light);
             border-left: 4px solid var(--border);
             overflow: hidden;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .issue-card.hidden {
+            display: none;
         }
 
         .issue-card.critical { border-left-color: var(--accent); }
@@ -244,15 +399,21 @@
 
         .issue-card img {
             width: 100%;
-            height: 180px;
+            height: 160px;
             object-fit: cover;
             display: block;
             background: #ddd;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .issue-card:hover img {
+            transform: scale(1.02);
         }
 
         .issue-card video {
             width: 100%;
-            height: 180px;
+            height: 160px;
             object-fit: cover;
             display: block;
             background: #000;
@@ -284,6 +445,7 @@
             font-weight: 600;
             padding: 2px 6px;
             flex-shrink: 0;
+            border-radius: 3px;
         }
 
         .issue-severity.critical { background: var(--accent); color: white; }
@@ -297,36 +459,105 @@
 
         /* Full Width Card (for video) */
         .issue-card.full-width {
-            grid-column: span 2;
+            grid-column: span 3;
         }
 
-        .issue-card.full-width img,
         .issue-card.full-width video {
-            height: 280px;
+            height: 300px;
         }
 
         /* No Image Card */
-        .issue-card.no-image {
-            display: flex;
-            flex-direction: column;
-        }
-
         .issue-card.no-image .issue-content {
-            flex: 1;
+            min-height: 120px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 40px;
+        }
+
+        .lightbox.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.2);
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-caption {
+            color: white;
+            margin-top: 20px;
+            font-size: 14pt;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+            padding: 20px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-nav:hover {
+            opacity: 1;
+        }
+
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
         /* Disclaimer */
         .disclaimer {
-            margin-top: 40px;
+            background: white;
             padding: 20px;
-            background: var(--light);
-            border: 1px solid var(--border);
+            border-radius: 8px;
             font-size: 9pt;
             color: var(--muted);
             line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .disclaimer-title {
@@ -339,9 +570,9 @@
 
         /* Footer */
         .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid var(--primary);
+            background: white;
+            padding: 20px 24px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -355,847 +586,1042 @@
             color: var(--primary);
         }
 
-        /* Print Optimization */
+        /* Search */
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px 12px 8px 36px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            font-size: 10pt;
+            width: 180px;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            width: 220px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+        }
+
+        /* Visible count badge */
+        .visible-count {
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 9pt;
+            font-weight: 600;
+        }
+
+        /* Print Styles */
         @media print {
-            .summary-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .issue-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .issue-severity { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body { background: white; }
+            .container { padding: 0; max-width: 100%; }
+            .sticky-nav { display: none; }
+            .section { box-shadow: none; page-break-inside: avoid; }
+            .issue-card { box-shadow: none; break-inside: avoid; }
             .issues-grid { grid-template-columns: repeat(2, 1fr); }
+            .issue-card.full-width { grid-column: span 2; }
+            .lightbox { display: none !important; }
+            .header, .summary-box, .disclaimer, .footer { box-shadow: none; }
         }
 
         /* Responsive */
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 900px) {
+            .issues-grid { grid-template-columns: repeat(2, 1fr); }
+            .issue-card.full-width { grid-column: span 2; }
+            .summary-stats { grid-template-columns: repeat(2, 1fr); }
+            .filter-controls { margin-left: 0; margin-top: 10px; width: 100%; justify-content: flex-start; }
+            .nav-divider { display: none; }
+        }
+
+        @media screen and (max-width: 600px) {
             .issues-grid { grid-template-columns: 1fr; }
             .issue-card.full-width { grid-column: span 1; }
-            .summary-stats { grid-template-columns: repeat(2, 1fr); }
             .meta-grid { grid-template-columns: 1fr; }
+            .sticky-nav { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <div class="header-top">
-            <div class="logo">Home Sweet Maine<span> | Keller Williams Realty</span></div>
-            <div class="report-badge">Property Inspection Report</div>
-        </div>
-        <h1 class="property-title">69 Dawes Avenue</h1>
-        <p class="property-address">Auburn, Maine 04210</p>
-    </header>
+    <div class="container">
+        <header class="header">
+            <div class="header-top">
+                <div class="logo">Home Sweet Maine<span> | Keller Williams Realty</span></div>
+                <div class="report-badge">Property Inspection Report</div>
+            </div>
+            <h1 class="property-title">69 Dawes Avenue</h1>
+            <p class="property-address">Auburn, Maine 04210</p>
+        </header>
 
-    <div class="meta-grid">
-        <div class="meta-item">
-            <div class="meta-label">Inspection Date</div>
-            <div class="meta-value">December 4, 2025</div>
+        <div class="meta-grid">
+            <div class="meta-item">
+                <div class="meta-label">Inspection Date</div>
+                <div class="meta-value">December 4, 2025</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Inspector</div>
+                <div class="meta-value">Michael Hamilton</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Report Status</div>
+                <div class="meta-value">Preliminary Assessment</div>
+            </div>
         </div>
-        <div class="meta-item">
-            <div class="meta-label">Inspector</div>
-            <div class="meta-value">Michael Hamilton</div>
+
+        <!-- Sticky Navigation -->
+        <nav class="sticky-nav">
+            <span class="nav-label">Jump to:</span>
+            <a href="#electrical" class="nav-link">⚡ Electrical</a>
+            <a href="#plumbing" class="nav-link">🔧 Plumbing</a>
+            <a href="#water" class="nav-link">💧 Water/Mold</a>
+            <a href="#structural" class="nav-link">🏠 Structural</a>
+            <a href="#hvac" class="nav-link">🔥 HVAC</a>
+            <a href="#safety" class="nav-link">⚠️ Safety</a>
+            <a href="#exterior" class="nav-link">🏗️ Exterior</a>
+            <a href="#cosmetic" class="nav-link">🎨 Cosmetic</a>
+            
+            <div class="nav-divider"></div>
+            
+            <div class="filter-controls">
+                <span class="nav-label">Filter:</span>
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn critical" data-filter="critical">Critical</button>
+                <button class="filter-btn major" data-filter="major">Major</button>
+                <button class="filter-btn minor" data-filter="minor">Minor</button>
+                <span class="visible-count" id="visibleCount">58 shown</span>
+            </div>
+            
+            <div class="nav-divider"></div>
+            
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Search issues..." id="searchInput">
+            </div>
+            
+            <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+        </nav>
+
+        <div class="summary-box">
+            <h2 class="summary-title">Executive Summary</h2>
+            <div class="summary-stats">
+                <div class="stat" onclick="filterBy('all')">
+                    <div class="stat-number" id="totalCount">58</div>
+                    <div class="stat-label">Total Issues</div>
+                </div>
+                <div class="stat critical" onclick="filterBy('critical')">
+                    <div class="stat-number" id="criticalCount">18</div>
+                    <div class="stat-label">Critical</div>
+                </div>
+                <div class="stat major" onclick="filterBy('major')">
+                    <div class="stat-number" id="majorCount">26</div>
+                    <div class="stat-label">Major</div>
+                </div>
+                <div class="stat minor" onclick="filterBy('minor')">
+                    <div class="stat-number" id="minorCount">14</div>
+                    <div class="stat-label">Minor</div>
+                </div>
+            </div>
+            <p class="summary-note">
+                This property exhibits significant deferred maintenance across multiple systems. Critical safety concerns include numerous electrical code violations, extensive water damage with active mold growth, and structural deterioration. The property requires substantial remediation before habitation. Professional inspections by licensed electricians, plumbers, and mold remediation specialists are strongly recommended.
+            </p>
         </div>
-        <div class="meta-item">
-            <div class="meta-label">Report Status</div>
-            <div class="meta-value">Preliminary Assessment</div>
+
+        <!-- ELECTRICAL SECTION -->
+        <section class="section" id="electrical">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">⚡</div>
+                <h3 class="section-title">Electrical Systems</h3>
+                <span class="issue-count">16 Issues</span>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="issues-grid">
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/noncode-extention-cord-hardwired-into-main-panel.jpg" alt="Extension cord hardwired into main panel" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E1</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Extension cord hardwired directly into main electrical panel — serious fire hazard and code violation</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/permanent-light-fixture-installed-with-extension-cord.jpg" alt="Light fixture with extension cord" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E2</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Permanent light fixture installed using extension cord — fire hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/exspoded-wires-garage.jpg" alt="Exposed wires in garage" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E3</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Exposed electrical wires in garage — electrocution hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/exsposed-heating-wires.jpg" alt="Exposed heating wires" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E4</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Exposed heating system wires — safety hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/bathroom-shower-light-fixture-secured-with-ducktape.jpg" alt="Light fixture secured with duct tape" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E5</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Bathroom shower light fixture secured with duct tape — code violation and hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/ungrounded-outlet-1.jpg" alt="Ungrounded outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E6</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Ungrounded electrical outlet #1 — safety hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/ungrounded-outlet-2.jpg" alt="Ungrounded outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E7</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Ungrounded electrical outlet #2 — safety hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/ungrounded-outlet-3.jpg" alt="Ungrounded outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E8</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Ungrounded electrical outlet #3 — safety hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/ungrounded-outlet-3-also-exspoded.jpg" alt="Ungrounded and exposed outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E9</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Ungrounded electrical outlet — also exposed wiring</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/ungrounded-outlet-4.jpg" alt="Ungrounded outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E10</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Ungrounded electrical outlet #4 — safety hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/ungrounded-outlet-5.jpg" alt="Ungrounded outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E11</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Ungrounded electrical outlet #5 — safety hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/ungrounded-outlet-6.jpg" alt="Ungrounded outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E12</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Ungrounded electrical outlet #6 — safety hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/unkept-wires-in-basement-ceiling.jpg" alt="Unkempt wires in basement" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E13</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Unkempt wiring throughout basement ceiling — potential hazard</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/old-style-glass-fuses.jpg" alt="Old glass fuses" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E14</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Outdated glass fuse electrical system — requires upgrade</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/old-style-outlet-kitchen.jpg" alt="Old style outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E15</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Old-style outlet in kitchen — recommend updating</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/exsposed-outlet.jpg" alt="Exposed outlet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">E16</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Exposed outlet box — needs cover plate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLUMBING SECTION -->
+        <section class="section" id="plumbing">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🔧</div>
+                <h3 class="section-title">Plumbing Systems</h3>
+                <span class="issue-count">12 Issues</span>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="issues-grid">
+                <div class="issue-card major full-width" data-severity="major">
+                    <video controls>
+                        <source src="src/img/air-in-water-line.mp4" type="video/mp4">
+                        Your browser does not support video playback.
+                    </video>
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P1</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Air in water lines — indicates potential system issues (video documentation)</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/broken-wall-exspoded-water-piping.jpg" alt="Exposed water piping" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P2</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Exposed water piping through broken wall — freeze risk and damage</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/exspoded-water-pipes.jpg" alt="Exposed water pipes" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P3</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Exposed water pipes — requires protection</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/water-trap-under-sink0showing-leaking-issue.jpg" alt="Leaking water trap" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P4</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Water trap under sink showing active leaking</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/ruisted-sewer-main.jpg" alt="Rusted sewer main" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P5</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Rusted main sewer line — potential failure risk</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/rusted-panel-over-sewer-main.jpg" alt="Rusted panel over sewer" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P6</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Rusted panel covering sewer main — corrosion damage</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/rusted-sewer-drain.jpg" alt="Rusted sewer drain" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P7</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Rusted sewer drain — deterioration present</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/slow-draining-sink.jpg" alt="Slow draining sink" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P8</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Slow draining sink — possible blockage</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/end-of-life-hotwater-heater.jpg" alt="End of life water heater" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P9</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Hot water heater at end of life — requires replacement</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/old-corroded-garbage-disposal-system.jpg" alt="Corroded garbage disposal" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P10</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Old corroded garbage disposal system — recommend replacement</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical no-image" data-severity="critical">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P11</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Pool was not winterized — risk of equipment and plumbing damage. Lines may have frozen, causing cracks in pipes, pump, filter, or heater components.</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/unable-to-test-pool-pump.jpg" alt="Pool pump untestable" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">P12</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Unable to test pool pump — functionality unknown</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WATER DAMAGE & MOLD SECTION -->
+        <section class="section" id="water">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">💧</div>
+                <h3 class="section-title">Water Damage &amp; Mold</h3>
+                <span class="issue-count">9 Issues</span>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="issues-grid">
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/mold.jpg" alt="Mold growth" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W1</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Active mold growth present — health hazard, requires professional remediation</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/mold-on-basement-ceiling.jpg" alt="Mold on basement ceiling" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W2</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Mold on basement ceiling — indicates moisture infiltration</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/mold-on-basement-wall.jpg" alt="Mold on basement wall" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W3</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Mold on basement wall — health concern</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/water-damaged-and-flaking-ceiling-paint.jpg" alt="Water damaged ceiling" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W4</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Water damaged and flaking ceiling paint — moisture intrusion</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/water-damage-garage.jpg" alt="Water damage in garage" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W5</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Water damage in garage — requires investigation</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/water-damage-in-garage-under-flat-roof.jpg" alt="Water damage under flat roof" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W6</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Water damage in garage under flat roof area — roof leak suspected</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/drop-ceiling-removed-suspect-water-issue.jpg" alt="Drop ceiling removed" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W7</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Drop ceiling removed revealing suspected water issue above</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/damaged-floor-and-subfloor-under-sink.jpg" alt="Damaged floor under sink" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W8</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Damaged floor and subfloor under sink — water damage</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/damage-under-sink.jpg" alt="Damage under sink" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">W9</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Additional damage under sink area</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRUCTURAL SECTION -->
+        <section class="section" id="structural">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🏠</div>
+                <h3 class="section-title">Structural, Doors &amp; Windows</h3>
+                <span class="issue-count">10 Issues</span>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="issues-grid">
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/broken-door-and-threshold.jpg" alt="Broken door and threshold" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S1</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Broken door and threshold — security and weather sealing issue</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/broken-door-frame-three-seasons-room.jpg" alt="Broken door frame" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S2</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Broken door frame in three-seasons room</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/broken-door-missing-door-knob.jpg" alt="Missing door knob" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S3</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Door missing door knob — needs hardware replacement</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/broken-spring-window-unable-to-stay-open.jpg" alt="Broken window spring" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S4</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Broken window spring — window unable to stay open</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/broken-wall-three-seasons.jpg" alt="Broken wall" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S5</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Broken wall in three-seasons room — structural concern</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/broken-window-frame-and-window.jpg" alt="Broken window frame" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S6</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Broken window frame and window — weather intrusion risk</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/nonfunctioning-window-crack-kitchen.jpg" alt="Cracked kitchen window" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S7</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Cracked, non-functioning window in kitchen</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/hole-in-bedroom-closet.jpg" alt="Hole in closet" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S8</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Hole in bedroom closet wall</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/cracking-on-ceiling.jpg" alt="Ceiling cracking" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S9</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Cracking on ceiling — monitor for expansion</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/exsposed-insulation.jpg" alt="Exposed insulation" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">S10</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Exposed insulation — improper coverage</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HVAC SECTION -->
+        <section class="section" id="hvac">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🔥</div>
+                <h3 class="section-title">HVAC &amp; Mechanical Systems</h3>
+                <span class="issue-count">4 Issues</span>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="issues-grid">
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/old-furnace-needing-removal.jpg" alt="Old furnace" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">H1</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Old furnace requiring removal — end of service life</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/nonfunctioning-modine-heating-garage-bay-2.jpg" alt="Non-functioning Modine heater" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">H2</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Non-functioning Modine heating unit in garage bay 2</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/needs-removing-pellet-stove.jpg" alt="Pellet stove" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">H3</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Pellet stove needs removal</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/nonfunctioning-lighting-fixture-bedroom-closet.jpg" alt="Non-functioning light" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">H4</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Non-functioning lighting fixture in bedroom closet</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SAFETY SECTION -->
+        <section class="section" id="safety">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">⚠️</div>
+                <h3 class="section-title">Safety &amp; Code Violations</h3>
+                <span class="issue-count">3 Issues</span>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="issues-grid">
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/noncode-hand-rail-missing-on-right-side.jpg" alt="Missing hand rail" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">C1</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Hand rail missing on right side of stairs — fall hazard, code violation</p>
+                    </div>
+                </div>
+
+                <div class="issue-card critical" data-severity="critical">
+                    <img src="src/img/noncode-hand-rail-needed-extension.jpg" alt="Hand rail needs extension" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">C2</span>
+                            <span class="issue-severity critical">Critical</span>
+                        </div>
+                        <p class="issue-text">Hand rail requires extension — does not meet code requirements</p>
+                    </div>
+                </div>
+
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/nonfunctioning-lighting-fixture-primary-bedroom-closet.jpg" alt="Non-functioning light" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">C3</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Non-functioning lighting fixture in primary bedroom closet</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXTERIOR SECTION -->
+        <section class="section" id="exterior">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🏗️</div>
+                <h3 class="section-title">Exterior &amp; Roof</h3>
+                <span class="issue-count">1 Issue</span>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="issues-grid">
+                <div class="issue-card major" data-severity="major">
+                    <img src="src/img/broken-solar-panels-end-of-life-roof.jpg" alt="Broken solar panels" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">R1</span>
+                            <span class="issue-severity major">Major</span>
+                        </div>
+                        <p class="issue-text">Broken solar panels on roof — end of life, require removal or replacement</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COSMETIC SECTION -->
+        <section class="section" id="cosmetic">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🎨</div>
+                <h3 class="section-title">Paint &amp; Cosmetic Issues</h3>
+                <span class="issue-count">5 Issues</span>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="issues-grid">
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/flacking-paint-three-seasons-room.jpg" alt="Flaking paint" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">F1</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Flaking paint in three-seasons room</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/flacking-paint-three-seasons-2.jpg" alt="Flaking paint" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">F2</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Flaking paint in three-seasons room (area 2)</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/flacking-paint-three-seasons-room-3.jpg" alt="Flaking paint" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">F3</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Flaking paint in three-seasons room (area 3)</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/flaking-paint-on-window.jpg" alt="Flaking paint on window" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">F4</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Flaking paint on window frames</p>
+                    </div>
+                </div>
+
+                <div class="issue-card minor" data-severity="minor">
+                    <img src="src/img/flaking-paint-three-seasons-ceiling.jpg" alt="Flaking paint on ceiling" onclick="openLightbox(this)">
+                    <div class="issue-content">
+                        <div class="issue-header">
+                            <span class="issue-number">F5</span>
+                            <span class="issue-severity minor">Minor</span>
+                        </div>
+                        <p class="issue-text">Flaking paint on three-seasons room ceiling</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="disclaimer">
+            <div class="disclaimer-title">Important Disclaimer</div>
+            <p>This inspection report represents a visual assessment of readily accessible areas on the date of inspection. This is not a comprehensive home inspection and should not be used as a substitute for a professional inspection by a licensed home inspector. Hidden defects may exist that were not visible during this assessment. The inspector is not a licensed electrician, plumber, structural engineer, or HVAC technician. All critical issues identified should be evaluated by appropriately licensed professionals before any real estate transaction. Cost estimates for repairs have not been provided and should be obtained from qualified contractors.</p>
         </div>
+
+        <footer class="footer">
+            <div>
+                <div class="footer-brand">Home Sweet Maine | Keller Williams Realty</div>
+                <div>50 Sewall St, Portland, ME 04102</div>
+            </div>
+            <div style="text-align: right;">
+                <div>Michael Hamilton, Real Estate Broker</div>
+                <div>Report Generated: December 4, 2025</div>
+            </div>
+        </footer>
     </div>
 
-    <div class="summary-box">
-        <h2 class="summary-title">Executive Summary</h2>
-        <div class="summary-stats">
-            <div class="stat">
-                <div class="stat-number">58</div>
-                <div class="stat-label">Total Issues</div>
-            </div>
-            <div class="stat critical">
-                <div class="stat-number">18</div>
-                <div class="stat-label">Critical</div>
-            </div>
-            <div class="stat major">
-                <div class="stat-number">26</div>
-                <div class="stat-label">Major</div>
-            </div>
-            <div class="stat minor">
-                <div class="stat-number">14</div>
-                <div class="stat-label">Minor</div>
-            </div>
-        </div>
-        <p class="summary-note">
-            This property exhibits significant deferred maintenance across multiple systems. Critical safety concerns include numerous electrical code violations, extensive water damage with active mold growth, and structural deterioration. The property requires substantial remediation before habitation. Professional inspections by licensed electricians, plumbers, and mold remediation specialists are strongly recommended.
-        </p>
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <span class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#10094;</span>
+        <span class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">&#10095;</span>
+        <img src="" alt="" id="lightbox-img">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
-    <!-- ELECTRICAL SECTION -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-icon">⚡</div>
-            <h3 class="section-title">Electrical Systems</h3>
-            <span class="issue-count">16 Issues</span>
-        </div>
-        <div class="issues-grid">
-
-            <div class="issue-card critical">
-                <img src="src/img/noncode-extention-cord-hardwired-into-main-panel.jpg" alt="Extension cord hardwired into main panel">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E1</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Extension cord hardwired directly into main electrical panel — serious fire hazard and code violation</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical">
-                <img src="src/img/permanent-light-fixture-installed-with-extension-cord.jpg" alt="Light fixture with extension cord">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E2</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Permanent light fixture installed using extension cord — fire hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical">
-                <img src="src/img/exspoded-wires-garage.jpg" alt="Exposed wires in garage">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E3</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Exposed electrical wires in garage — electrocution hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical">
-                <img src="src/img/exsposed-heating-wires.jpg" alt="Exposed heating wires">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E4</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Exposed heating system wires — safety hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical">
-                <img src="src/img/bathroom-shower-light-fixture-secured-with-ducktape.jpg" alt="Light fixture secured with duct tape">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E5</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Bathroom shower light fixture secured with duct tape — code violation and hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/ungrounded-outlet-1.jpg" alt="Ungrounded outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E6</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Ungrounded electrical outlet #1 — safety hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/ungrounded-outlet-2.jpg" alt="Ungrounded outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E7</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Ungrounded electrical outlet #2 — safety hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/ungrounded-outlet-3.jpg" alt="Ungrounded outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E8</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Ungrounded electrical outlet #3 — safety hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical">
-                <img src="src/img/ungrounded-outlet-3-also-exspoded.jpg" alt="Ungrounded and exposed outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E9</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Ungrounded electrical outlet — also exposed wiring</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/ungrounded-outlet-4.jpg" alt="Ungrounded outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E10</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Ungrounded electrical outlet #4 — safety hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/ungrounded-outlet-5.jpg" alt="Ungrounded outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E11</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Ungrounded electrical outlet #5 — safety hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/ungrounded-outlet-6.jpg" alt="Ungrounded outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E12</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Ungrounded electrical outlet #6 — safety hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/unkept-wires-in-basement-ceiling.jpg" alt="Unkempt wires in basement">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E13</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Unkempt wiring throughout basement ceiling — potential hazard</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/old-style-glass-fuses.jpg" alt="Old glass fuses">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E14</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Outdated glass fuse electrical system — requires upgrade</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/old-style-outlet-kitchen.jpg" alt="Old style outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E15</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Old-style outlet in kitchen — recommend updating</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/exsposed-outlet.jpg" alt="Exposed outlet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">E16</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Exposed outlet box — needs cover plate</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- PLUMBING SECTION -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-icon">🔧</div>
-            <h3 class="section-title">Plumbing Systems</h3>
-            <span class="issue-count">12 Issues</span>
-        </div>
-        <div class="issues-grid">
-
-            <div class="issue-card major full-width">
-                <video controls>
-                    <source src="src/img/air-in-water-line.mp4" type="video/mp4">
-                    Your browser does not support video playback.
-                </video>
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P1</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Air in water lines — indicates potential system issues (video documentation)</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/broken-wall-exspoded-water-piping.jpg" alt="Exposed water piping">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P2</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Exposed water piping through broken wall — freeze risk and damage</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/exspoded-water-pipes.jpg" alt="Exposed water pipes">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P3</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Exposed water pipes — requires protection</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/water-trap-under-sink0showing-leaking-issue.jpg" alt="Leaking water trap">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P4</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Water trap under sink showing active leaking</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/ruisted-sewer-main.jpg" alt="Rusted sewer main">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P5</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Rusted main sewer line — potential failure risk</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/rusted-panel-over-sewer-main.jpg" alt="Rusted panel over sewer">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P6</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Rusted panel covering sewer main — corrosion damage</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/rusted-sewer-drain.jpg" alt="Rusted sewer drain">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P7</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Rusted sewer drain — deterioration present</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/slow-draining-sink.jpg" alt="Slow draining sink">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P8</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Slow draining sink — possible blockage</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/end-of-life-hotwater-heater.jpg" alt="End of life water heater">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P9</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Hot water heater at end of life — requires replacement</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/old-corroded-garbage-disposal-system.jpg" alt="Corroded garbage disposal">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P10</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Old corroded garbage disposal system — recommend replacement</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical no-image">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P11</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Pool was not winterized — risk of equipment and plumbing damage. Lines may have frozen, causing cracks in pipes, pump, filter, or heater components.</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/unable-to-test-pool-pump.jpg" alt="Pool pump untestable">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">P12</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Unable to test pool pump — functionality unknown</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- WATER DAMAGE & MOLD SECTION -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-icon">💧</div>
-            <h3 class="section-title">Water Damage &amp; Mold</h3>
-            <span class="issue-count">9 Issues</span>
-        </div>
-        <div class="issues-grid">
-
-            <div class="issue-card critical">
-                <img src="src/img/mold.jpg" alt="Mold growth">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W1</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Active mold growth present — health hazard, requires professional remediation</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical">
-                <img src="src/img/mold-on-basement-ceiling.jpg" alt="Mold on basement ceiling">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W2</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Mold on basement ceiling — indicates moisture infiltration</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical">
-                <img src="src/img/mold-on-basement-wall.jpg" alt="Mold on basement wall">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W3</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Mold on basement wall — health concern</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/water-damaged-and-flaking-ceiling-paint.jpg" alt="Water damaged ceiling">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W4</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Water damaged and flaking ceiling paint — moisture intrusion</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/water-damage-garage.jpg" alt="Water damage in garage">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W5</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Water damage in garage — requires investigation</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/water-damage-in-garage-under-flat-roof.jpg" alt="Water damage under flat roof">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W6</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Water damage in garage under flat roof area — roof leak suspected</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/drop-ceiling-removed-suspect-water-issue.jpg" alt="Drop ceiling removed">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W7</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Drop ceiling removed revealing suspected water issue above</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/damaged-floor-and-subfloor-under-sink.jpg" alt="Damaged floor under sink">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W8</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Damaged floor and subfloor under sink — water damage</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/damage-under-sink.jpg" alt="Damage under sink">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">W9</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Additional damage under sink area</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- STRUCTURAL & DOORS/WINDOWS SECTION -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-icon">🏠</div>
-            <h3 class="section-title">Structural, Doors &amp; Windows</h3>
-            <span class="issue-count">10 Issues</span>
-        </div>
-        <div class="issues-grid">
-
-            <div class="issue-card major">
-                <img src="src/img/broken-door-and-threshold.jpg" alt="Broken door and threshold">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S1</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Broken door and threshold — security and weather sealing issue</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/broken-door-frame-three-seasons-room.jpg" alt="Broken door frame">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S2</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Broken door frame in three-seasons room</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/broken-door-missing-door-knob.jpg" alt="Missing door knob">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S3</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Door missing door knob — needs hardware replacement</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/broken-spring-window-unable-to-stay-open.jpg" alt="Broken window spring">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S4</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Broken window spring — window unable to stay open</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/broken-wall-three-seasons.jpg" alt="Broken wall">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S5</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Broken wall in three-seasons room — structural concern</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/broken-window-frame-and-window.jpg" alt="Broken window frame">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S6</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Broken window frame and window — weather intrusion risk</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/nonfunctioning-window-crack-kitchen.jpg" alt="Cracked kitchen window">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S7</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Cracked, non-functioning window in kitchen</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/hole-in-bedroom-closet.jpg" alt="Hole in closet">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S8</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Hole in bedroom closet wall</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/cracking-on-ceiling.jpg" alt="Ceiling cracking">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S9</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Cracking on ceiling — monitor for expansion</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/exsposed-insulation.jpg" alt="Exposed insulation">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">S10</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Exposed insulation — improper coverage</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- HVAC & MECHANICAL SECTION -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-icon">🔥</div>
-            <h3 class="section-title">HVAC &amp; Mechanical Systems</h3>
-            <span class="issue-count">4 Issues</span>
-        </div>
-        <div class="issues-grid">
-
-            <div class="issue-card major">
-                <img src="src/img/old-furnace-needing-removal.jpg" alt="Old furnace">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">H1</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Old furnace requiring removal — end of service life</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/nonfunctioning-modine-heating-garage-bay-2.jpg" alt="Non-functioning Modine heater">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">H2</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Non-functioning Modine heating unit in garage bay 2</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/needs-removing-pellet-stove.jpg" alt="Pellet stove">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">H3</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Pellet stove needs removal</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/nonfunctioning-lighting-fixture-bedroom-closet.jpg" alt="Non-functioning light">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">H4</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Non-functioning lighting fixture in bedroom closet</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- SAFETY & CODE SECTION -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-icon">⚠️</div>
-            <h3 class="section-title">Safety &amp; Code Violations</h3>
-            <span class="issue-count">3 Issues</span>
-        </div>
-        <div class="issues-grid">
-
-            <div class="issue-card critical">
-                <img src="src/img/noncode-hand-rail-missing-on-right-side.jpg" alt="Missing hand rail">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">C1</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Hand rail missing on right side of stairs — fall hazard, code violation</p>
-                </div>
-            </div>
-
-            <div class="issue-card critical">
-                <img src="src/img/noncode-hand-rail-needed-extension.jpg" alt="Hand rail needs extension">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">C2</span>
-                        <span class="issue-severity critical">Critical</span>
-                    </div>
-                    <p class="issue-text">Hand rail requires extension — does not meet code requirements</p>
-                </div>
-            </div>
-
-            <div class="issue-card major">
-                <img src="src/img/nonfunctioning-lighting-fixture-primary-bedroom-closet.jpg" alt="Non-functioning light">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">C3</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Non-functioning lighting fixture in primary bedroom closet</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- EXTERIOR & ROOF SECTION -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-icon">🏗️</div>
-            <h3 class="section-title">Exterior &amp; Roof</h3>
-            <span class="issue-count">1 Issue</span>
-        </div>
-        <div class="issues-grid">
-
-            <div class="issue-card major">
-                <img src="src/img/broken-solar-panels-end-of-life-roof.jpg" alt="Broken solar panels">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">R1</span>
-                        <span class="issue-severity major">Major</span>
-                    </div>
-                    <p class="issue-text">Broken solar panels on roof — end of life, require removal or replacement</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- COSMETIC SECTION -->
-    <section class="section">
-        <div class="section-header">
-            <div class="section-icon">🎨</div>
-            <h3 class="section-title">Paint &amp; Cosmetic Issues</h3>
-            <span class="issue-count">5 Issues</span>
-        </div>
-        <div class="issues-grid">
-
-            <div class="issue-card minor">
-                <img src="src/img/flacking-paint-three-seasons-room.jpg" alt="Flaking paint">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">F1</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Flaking paint in three-seasons room</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/flacking-paint-three-seasons-2.jpg" alt="Flaking paint">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">F2</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Flaking paint in three-seasons room (area 2)</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/flacking-paint-three-seasons-room-3.jpg" alt="Flaking paint">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">F3</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Flaking paint in three-seasons room (area 3)</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/flaking-paint-on-window.jpg" alt="Flaking paint on window">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">F4</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Flaking paint on window frames</p>
-                </div>
-            </div>
-
-            <div class="issue-card minor">
-                <img src="src/img/flaking-paint-three-seasons-ceiling.jpg" alt="Flaking paint on ceiling">
-                <div class="issue-content">
-                    <div class="issue-header">
-                        <span class="issue-number">F5</span>
-                        <span class="issue-severity minor">Minor</span>
-                    </div>
-                    <p class="issue-text">Flaking paint on three-seasons room ceiling</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <div class="disclaimer">
-        <div class="disclaimer-title">Important Disclaimer</div>
-        <p>This inspection report represents a visual assessment of readily accessible areas on the date of inspection. This is not a comprehensive home inspection and should not be used as a substitute for a professional inspection by a licensed home inspector. Hidden defects may exist that were not visible during this assessment. The inspector is not a licensed electrician, plumber, structural engineer, or HVAC technician. All critical issues identified should be evaluated by appropriately licensed professionals before any real estate transaction. Cost estimates for repairs have not been provided and should be obtained from qualified contractors.</p>
-    </div>
-
-    <footer class="footer">
-        <div>
-            <div class="footer-brand">Home Sweet Maine | Keller Williams Realty</div>
-            <div>50 Sewall St, Portland, ME 04102</div>
-        </div>
-        <div style="text-align: right;">
-            <div>Michael Hamilton, Real Estate Broker</div>
-            <div>Report Generated: December 4, 2025</div>
-        </div>
-    </footer>
+    <script>
+        // Toggle section collapse
+        function toggleSection(header) {
+            const section = header.closest('.section');
+            section.classList.toggle('collapsed');
+        }
+
+        // Filter functionality
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        function filterBy(severity) {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            document.querySelector(`[data-filter="${severity}"]`).classList.add('active');
+            currentFilter = severity;
+            applyFilters();
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            applyFilters();
+        });
+
+        function applyFilters() {
+            const cards = document.querySelectorAll('.issue-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const severity = card.dataset.severity;
+                const text = card.querySelector('.issue-text')?.textContent.toLowerCase() || '';
+                
+                const matchesFilter = currentFilter === 'all' || severity === currentFilter;
+                const matchesSearch = currentSearch === '' || text.includes(currentSearch);
+
+                if (matchesFilter && matchesSearch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            document.getElementById('visibleCount').textContent = `${visibleCount} shown`;
+        }
+
+        // Lightbox functionality
+        let lightboxImages = [];
+        let currentImageIndex = 0;
+
+        function openLightbox(imgElement) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            
+            // Get all visible images
+            lightboxImages = Array.from(document.querySelectorAll('.issue-card:not(.hidden) img[onclick]'));
+            currentImageIndex = lightboxImages.indexOf(imgElement);
+            
+            lightboxImg.src = imgElement.src;
+            lightboxCaption.textContent = imgElement.closest('.issue-card').querySelector('.issue-text').textContent;
+            lightbox.classList.add('active');
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function navigateLightbox(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) currentImageIndex = lightboxImages.length - 1;
+            if (currentImageIndex >= lightboxImages.length) currentImageIndex = 0;
+            
+            const img = lightboxImages[currentImageIndex];
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-caption').textContent = img.closest('.issue-card').querySelector('.issue-text').textContent;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            }
+        });
+
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        });
+    </script>
 
 </body>
 </html>
