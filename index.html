@@ -170,6 +170,13 @@
             margin: 0 8px;
         }
 
+        .nav-links-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
         /* Filter Controls */
         .filter-controls {
             display: flex;
@@ -598,15 +605,69 @@
             .issues-grid { grid-template-columns: repeat(2, 1fr); }
             .issue-card.full-width { grid-column: span 2; }
             .summary-stats { grid-template-columns: repeat(2, 1fr); }
-            .filter-controls { margin-left: 0; margin-top: 10px; width: 100%; justify-content: flex-start; }
-            .nav-divider { display: none; }
         }
 
         @media screen and (max-width: 600px) {
             .issues-grid { grid-template-columns: 1fr; }
             .issue-card.full-width { grid-column: span 1; }
             .meta-grid { grid-template-columns: 1fr; }
-            .sticky-nav { flex-direction: column; align-items: flex-start; }
+            
+            .sticky-nav {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .nav-label { display: none; }
+            .nav-divider { display: none; }
+            
+            .nav-links-wrapper {
+                display: flex;
+                overflow-x: auto;
+                gap: 8px;
+                padding-bottom: 8px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                margin: 0 -12px;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            
+            .nav-links-wrapper::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .nav-link {
+                flex-shrink: 0;
+                padding: 10px 14px;
+                font-size: 10pt;
+            }
+            
+            .filter-controls {
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 4px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                margin: 0 -12px;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            
+            .filter-controls::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .filter-btn {
+                flex-shrink: 0;
+                padding: 10px 16px;
+            }
+            
+            .visible-count {
+                flex-shrink: 0;
+            }
         }
     </style>
 </head>
@@ -640,14 +701,16 @@
         <!-- Sticky Navigation -->
         <nav class="sticky-nav">
             <span class="nav-label">Jump to:</span>
-            <a href="#electrical" class="nav-link">⚡ Electrical</a>
-            <a href="#plumbing" class="nav-link">🔧 Plumbing</a>
-            <a href="#water" class="nav-link">💧 Water/Mold</a>
-            <a href="#structural" class="nav-link">🏠 Structural</a>
-            <a href="#hvac" class="nav-link">🔥 HVAC</a>
-            <a href="#safety" class="nav-link">⚠️ Safety</a>
-            <a href="#exterior" class="nav-link">🏗️ Exterior</a>
-            <a href="#cosmetic" class="nav-link">🎨 Cosmetic</a>
+            <div class="nav-links-wrapper">
+                <a href="#electrical" class="nav-link">⚡ Electrical</a>
+                <a href="#plumbing" class="nav-link">🔧 Plumbing</a>
+                <a href="#water" class="nav-link">💧 Water/Mold</a>
+                <a href="#structural" class="nav-link">🏠 Structural</a>
+                <a href="#hvac" class="nav-link">🔥 HVAC</a>
+                <a href="#safety" class="nav-link">⚠️ Safety</a>
+                <a href="#exterior" class="nav-link">🏗️ Exterior</a>
+                <a href="#cosmetic" class="nav-link">🎨 Cosmetic</a>
+            </div>
             
             <div class="nav-divider"></div>
             
@@ -659,7 +722,6 @@
                 <button class="filter-btn minor" data-filter="minor">Minor</button>
                 <span class="visible-count" id="visibleCount">58 shown</span>
             </div>
-            
 
         </nav>
 
